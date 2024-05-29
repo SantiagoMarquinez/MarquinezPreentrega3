@@ -1,0 +1,299 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282A35;
+}
+
+
+body, h2, p, input, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+
+h3 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+h1,
+h2 {
+    color: #d1cfcf;
+    text-align: center;
+}
+
+.headerContainer {
+    margin-left: 70px;
+    margin-right: 70px;
+    width: 95%;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#productsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+#messagesLogs{
+    color:#c0392b
+}
+
+/* Estilos generales para las tarjetas */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    width: 200px;
+    height: 200px;
+    background-color: #d1cfcf;
+}
+
+/* Estilos para el título del producto */
+.card .title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el precio del producto */
+.card .price {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Estilos para el botón de eliminar */
+.card .delete-button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Estilos para el hover del botón de eliminar*/
+.card .delete-button:hover {
+    background-color: #c0392b;
+}
+
+/*Estilos del formulario*/
+
+.formContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.formulario{
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 400px;
+}
+
+
+/*estilos de chat*/
+
+.messageContainer{
+    max-height: 300px; 
+    max-width: 300px;
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    border: 1px solid #ccc; 
+    padding: 10px; 
+
+}
+
+
+/*Estilos de Login y registro*/
+
+.loginContainer {
+    margin-top: 20px;
+}
+
+
+form {
+    max-width: 400px;
+    min-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label, input, button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    font-family:sans-serif;
+}
+
+.btn-social-login {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+input {
+    border: 1px solid #d4d1d3;
+    border-radius: 7px;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+
+
+
+
+
+/* estilos del contenedor*/
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+/* estilos de formulario */
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.form-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+/* Estilo de grupo de formulario */
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+.form-group label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* estilo de botones */
+.btn {
+    max-width: 150px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.oauth-btn {
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px solid #d4d1d3;
+    border-radius: 7px;
+    background-color: transparent;
+    color:  #333;
+    font-weight: 550;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Redirect text styling */
+.redirect {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+.redirect a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.redirect a:hover {
+    text-decoration: underline;
+}
+
+/* PROFILE*/
+.profile-info p {
+    margin: 10px 0;
+}
+
+a.button {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+a.button:hover {
+    background-color: #45a049;
+}
+
+.profile-info {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    margin: 10px 0;
+}
