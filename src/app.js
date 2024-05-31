@@ -1,6 +1,5 @@
 
 const express = require("express");
-const app = express();
 const session = require("express-session");
 const expresshandlebars = require("express-handlebars");
 const socket = require("socket.io");
@@ -8,21 +7,22 @@ const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const initializePassport = require("./config/passport.config.js");
 const MongoStore = require('connect-mongo');
-
 const configObject = require("./config/config.js");
 const program = require("./utils/commander.js");
-const { mongo_url,puerto } = configObject;
 
 
-const MessageModel = require("./models/message.model.js");
+const { puerto, session_secret, mongo_url} = configObject;
 require("./database.js"); // Conexión con la base de datos: esto hace la conexión con database.js y data base.js hace la conexión con mongodb
 
 
+const MessageModel = require("./models/message.model.js");
 const productsRouter = require("./routes/products.router.js");
 const cartsRouter = require("./routes/carts.router.js");
 const viewsRouter = require("./routes/views.router.js");
 const userRouter = require("./routes/user.router.js");
 const sessionRouter = require('./routes/session.router.js'); 
+
+const app = express();
 
 
 // Middleware
@@ -31,12 +31,10 @@ app.use(express.static("./src/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));// extended true indica que trabajamos con datos complejos  (no solo strings)
 
-    // Configuración de cookies
-    app.use(cookieParser());
 
 // Configuración de sesiones
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: session_secret,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
@@ -45,11 +43,13 @@ app.use(session({
     })
 }));
 
+// Configuración de cookies
+app.use(cookieParser());
+
 
 // Inicialización de Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
 initializePassport();
 
 // Middleware global para logs
@@ -101,31 +101,27 @@ io.on("connection", (socket) => {
 
 
 
-
-
-
 // Manejo de eventos de productos
-const ProductManager = require("./controllers/productManager.js");
-const productManager = new ProductManager("./src/models/productos.json");
+const productService = require("./services/product.service.js");
 
 io.on("connection", async (socket) => {
     console.log("Un cliente conectado");
 
     // Envía array de productos al cliente
-    socket.emit("products", await productManager.getProducts());
+    socket.emit("products", await productService.getProducts());
 
     // Recibe el evento deleteProduct desde el cliente
     socket.on("removeProduct", async (id) => {
-        await productManager.deleteProduct(id);
+        await productService.deleteProduct(id);
         // Envía el array de productos actualizados
-        socket.emit("products", await productManager.getProducts());
+        socket.emit("products", await productService.getProducts());
     });
 
     // Recibe el evento addProduct desde el cliente
     socket.on("addProduct", async (product) => {
-        await productManager.addProduct(product);
+        await productService.addProduct(product);
         // Envía el array de productos actualizados
-        socket.emit("products", await productManager.getProducts());
+        socket.emit("products", await productService.getProducts());
     });
 });
 
@@ -141,16 +137,3 @@ io.on("connection", async (socket) => {
     socket.emit("cart", await cartManager.getProductsFromCart());
 });
 
-
-
-
-// app.use((req, res, next) => {
-//     console.log('Usuario autenticado:', req.user);
-//     next();
-// });
-
-
-// app.use('/api/products', (req, res, next) => {
-//     console.log('Usuario autenticado después de Google:', req.user);
-//     next();
-// }, productsRouter);

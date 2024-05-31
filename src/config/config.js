@@ -9,7 +9,8 @@ dotenv.config({
 
 const configObject = {
     puerto: process.env.PUERTO,
-    mongo_url: process.env.MONGO_URL
+    mongo_url: process.env.MONGO_URL,
+    session_secret: process.env.SESSION_SECRET
 };
 
 module.exports = configObject;

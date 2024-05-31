@@ -1,46 +1,16 @@
 const express = require("express");
 const router = express.Router();
+const productsController = require("../controllers/products.controller");
+const messagesController = require("../controllers/messages.controller");
 
-const ProductManager = require("../controllers/productManager.js");
-const productManager = new ProductManager();
-const MessageManager = require("../controllers/messageManager.js");
-const messageManager = new MessageManager();
-const ProductModel = require('../models/product.model');
+router.get("/products", productsController.getProductsView);
+router.get("/realTimeProducts", productsController.getRealTimeProductsView);
+router.get("/chat", messagesController.getChatView);
+router.get('/register', (req, res) => res.render('register'));
+router.get('/login', (req, res) => res.render('login'));
 
-router.get("/products", async (req, res) => {
-    try {
-        const { page = 1, limit = 10, sort, category, available } = req.query;
+module.exports = router;
 
-        const options = {
-            page: parseInt(page),
-            limit: parseInt(limit),
-            sort: sort ? { price: sort === 'asc' ? 1 : -1 } : undefined,
-        };
-
-        const filter = {};
-        if (category) filter.category = category;
-        if (available !==undefined) filter.status = available;
-
-        console.log(filter.status)
-
-        const products = await ProductModel.paginate(filter, options);
-
-        const productsData = products.docs.map(doc => doc.toObject());
-
-        // Defino el rango de páginas a mostrar
-        const startPage = Math.max(1, products.prevPage);
-        const endPage = Math.min(products.totalPages, products.nextPage);
-        const pagesInRange = [];
-        for (let i = startPage; i <= endPage; i++) {
-            pagesInRange.push(i);
-        }
-
-        res.render("home", { products: { ...products, docs: productsData, pagesInRange: pagesInRange } });
-    } catch (error) {
-        console.log("No se pudieron obtener los productos");
-        res.status(500).json({ error: "Error interno del servidor" });
-    }
-});
 
 
 
