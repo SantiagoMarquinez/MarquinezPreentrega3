@@ -104,6 +104,7 @@ io.on("connection", (socket) => {
 // Manejo de eventos de productos
 const productService = require("./services/product.service.js");
 
+
 io.on("connection", async (socket) => {
     console.log("Un cliente conectado");
 
@@ -119,21 +120,20 @@ io.on("connection", async (socket) => {
 
     // Recibe el evento addProduct desde el cliente
     socket.on("addProduct", async (product) => {
-        await productService.addProduct(product);
+        await productManager.addProduct(product);
         // Envía el array de productos actualizados
-        socket.emit("products", await productService.getProducts());
+        socket.emit("products", await productManager.getProducts());
     });
 });
 
 
 // Manejo de eventos de carrito
-const CartManager = require("./controllers/cartManager.js");
-const cartManager = new CartManager();
+const cartService = require("./services/cart.service.js");
 
 io.on("connection", async (socket) => {
     console.log("Un cliente conectado");
 
     // Envía los datos del carrito al cliente cuando se conecta
-    socket.emit("cart", await cartManager.getProductsFromCart());
+    socket.emit("cart", await cartService.getProductsFromCart());
 });
 

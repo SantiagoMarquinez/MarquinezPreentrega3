@@ -7,8 +7,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcryptjs');
 const userModel = require('../models/user.model'); 
 
-const CartManager = require("../controllers/cartManager");
-const cartManager = new CartManager(); 
+const cartService = require("../services/cart.service");
 const CartModel = require("../models/cart.model.js"); 
 
 // Función para hashear la contraseña

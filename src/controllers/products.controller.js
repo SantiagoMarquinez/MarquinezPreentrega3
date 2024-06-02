@@ -38,13 +38,12 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
     try {
-        await productService.deleteProduct(req.params.pid);
+        await productService.deleteProduct(req.params.id);
         res.json({ message: "Producto eliminado con éxito" });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
-
 
 exports.getProductsView = async (req, res) => {
     try {
@@ -58,7 +57,7 @@ exports.getProductsView = async (req, res) => {
         if (category) filter.category = category;
         if (available !== undefined) filter.status = available;
         
-        const products = await productService.paginateProducts(filter, options);
+        const products = await productService.getProducts(filter, options);
         const productsData = products.docs.map(doc => doc.toObject());
 
         const startPage = Math.max(1, products.prevPage);
@@ -77,7 +76,6 @@ exports.getRealTimeProductsView = async (req, res) => {
         const products = await productService.getProducts();
         res.render("realTimeProducts", { products });
     } catch (error) {
-        console.error("Error al obtener productos en tiempo real:", error);
         res.status(500).send("Error interno del servidor");
     }
 };
