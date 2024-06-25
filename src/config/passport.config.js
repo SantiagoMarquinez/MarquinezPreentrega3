@@ -33,7 +33,7 @@ const initializePassport = () => {
                 return done(null, false, { message: 'El correo electrónico ya está registrado' });
             }
 
-            const newCart = await cartManager.createNewCart(); // Create a new cart and get the complete object
+            const newCart = await cartManager.createNewCart(); 
 
             let newUser = {
                 first_name,
@@ -41,7 +41,7 @@ const initializePassport = () => {
                 email,
                 age,
                 password: createHash(password),
-                cart: newCart._id // Assign the new cart ID to the user
+                cart: newCart._id 
             };
 
             let resultado = await userModel.create(newUser);

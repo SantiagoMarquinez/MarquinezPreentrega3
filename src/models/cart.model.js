@@ -16,7 +16,7 @@ const cartSchema = new mongoose.Schema({
     ]
 });
 
-// Middleware pre para realizar populate
+// Middleware para realizar populate
 cartSchema.pre(/^find/, function (next) {
     this.populate('products.product');
     next();
